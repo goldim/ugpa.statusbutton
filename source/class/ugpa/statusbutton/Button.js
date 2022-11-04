@@ -14,7 +14,6 @@
  */
 qx.Class.define("ugpa.statusbutton.Button", {
     extend : qx.ui.form.Button,
-    include: [qx.ui.form.MModelProperty],
 
     construct(label){
         // noinspection JSAnnotator
@@ -26,11 +25,6 @@ qx.Class.define("ugpa.statusbutton.Button", {
         appearance: {
             init: "status-button",
             refine: true
-        },
-
-        value: {
-            apply: "_applyValue",
-            event: "changeValue"
         },
 
         statusPosition: {
@@ -49,17 +43,13 @@ qx.Class.define("ugpa.statusbutton.Button", {
             }
         },
 
-        _applyValue(value){
-            this.getChildControl("icon").setBlinked(value);
-            this.getChildControl("icon").setColor("green");
+        toggleAnimation(){
+            const hasAnimation = this.getChildControl("icon").getBlinked();
+            this.getChildControl("icon").setBlinked(!hasAnimation);
         },
 
-        __getColorFromModelByValue(value){
-            return this.__model[value];
-        },
-
-        __valueHasAnimation(value){
-            return this.__model.get(value).attr;
+        setColor(color){
+            this.getChildControl("icon").setColor(color);
         },
 
         _createChildControlImpl(id){
