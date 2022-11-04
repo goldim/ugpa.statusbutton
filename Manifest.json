@@ -4,7 +4,7 @@
   {
     "name" : "ugpa.statusbutton",
 
-    "summary" : "special button with status",
+    "summary" : "special button with indicator",
     "description" : "button with color circle which have animation and color",
 
     "homepage" : "https://github.com/goldim/ugpa.statusbutton",
