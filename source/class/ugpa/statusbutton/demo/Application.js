@@ -21,8 +21,7 @@ qx.Class.define("ugpa.statusbutton.demo.Application",
   *****************************************************************************
   */
 
-  members :
-  {
+  members :  {
     /**
      * This method contains the initial application code and gets called 
      * during startup of the application
@@ -48,20 +47,40 @@ qx.Class.define("ugpa.statusbutton.demo.Application",
       */
 
       // Create a button
-      const button1 = new ugpa.statusbutton.Button("Very special button", "ugpa/statusbutton/test.png");
-      button1.setStatusPosition("left");
+      const button = new ugpa.statusbutton.Button("label");
+      button.setStatusPosition("left");
 
       // Document is the application root
       const doc = this.getRoot();
 
       // Add button to document at fixed coordinates
-      doc.add(button1, {left: 100, top: 50});
-      let v = false;
+      doc.add(button, {left: 100, top: 50});      
 
-      button1.addListener("click", function(){
-        v = !v;
-        button1.setValue(v);
-      });
+      const colors = {
+          0: "red",
+          1: "yellow",
+          2: "green"
+      };
+
+      const animations = {
+        1: true
+      };
+
+      const timer = new qx.event.Timer(3000);
+      timer.addListener("interval", function(){
+        const randomValue = this.__getRandomValue(0, 2);
+        button.setColor(colors[randomValue]);
+        if (animations[randomValue]){
+            button.toggleAnimation();
+        }
+      }, this);
+      timer.start();
+    },
+
+    __getRandomValue(min, max){
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
   }
 });
