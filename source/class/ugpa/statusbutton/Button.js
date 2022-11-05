@@ -15,7 +15,7 @@
 qx.Class.define("ugpa.statusbutton.Button", {
     extend : qx.ui.form.Button,
 
-    construct(label){
+    construct(label) {
         // noinspection JSAnnotator
         super(label, "@MaterialIcons/circle/24");
     },
@@ -34,9 +34,9 @@ qx.Class.define("ugpa.statusbutton.Button", {
     },
 
     members: {
-        _applyAnimated(value){
-            if (value){
-                if (this._animationHandler){
+        _applyAnimated(value) {
+            if (value) {
+                if (this._animationHandler) {
                     this._animationHandler.play();
                 } else {
                     this._animationHandler = this.__createAnimation();
@@ -46,7 +46,7 @@ qx.Class.define("ugpa.statusbutton.Button", {
             }
         },
 
-        __createAnimation(){
+        __createAnimation() {
             const desc = {
                 duration: 2000,
                 timing: "step-end",
@@ -61,11 +61,11 @@ qx.Class.define("ugpa.statusbutton.Button", {
             return qx.bom.element.AnimationCss.animate(html, desc);
         },
 
-        toggleAnimation(){
+        toggleAnimation() {
             this.setAnimated(!this.getAnimated());
         },
 
-        setColor(color){
+        setColor(color) {
             this.getChildControl("icon").setTextColor(color);
         }
     }

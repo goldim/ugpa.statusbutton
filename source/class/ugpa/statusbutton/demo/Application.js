@@ -66,17 +66,17 @@ qx.Class.define("ugpa.statusbutton.demo.Application",
       };
 
       const timer = new qx.event.Timer(3000);
-      timer.addListener("interval", function(){
+      timer.addListener("interval", function() {
         const randomValue = this.__getRandomValue(0, 2);
         button.setColor(colors[randomValue]);
-        if (animations[randomValue]){
+        if (animations[randomValue]) {
             button.toggleAnimation();
         }
       }, this);
       timer.start();
     },
 
-    __getRandomValue(min, max){
+    __getRandomValue(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1) + min);
