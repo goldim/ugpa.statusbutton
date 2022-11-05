@@ -17,8 +17,7 @@ qx.Class.define("ugpa.statusbutton.Button", {
 
     construct(label){
         // noinspection JSAnnotator
-        super(label, "icon-mock");
-        this.initStatusPosition("left");
+        super(label, "@MaterialIcons/circle/24");
     },
 
     properties: {
@@ -27,45 +26,47 @@ qx.Class.define("ugpa.statusbutton.Button", {
             refine: true
         },
 
-        statusPosition: {
-            deferredInit: true,
-            apply: "_applyStatusPosition"
+        animated: {
+            init: false,
+            check: "Boolean",
+            apply: "_applyAnimated"
         }
     },
 
     members: {
-        _applyStatusPosition(position){
-            if (position === "left"){
-                this.setIconPosition("right");
+        _applyAnimated(value){
+            if (value){
+                if (this._animationHandler){
+                    this._animationHandler.play();
+                } else {
+                    this._animationHandler = this.__createAnimation();
+                }
+            } else {
+                this._animationHandler.pause();
             }
-            else if (position === "right"){
-                this.setIconPosition("left");
-            }
+        },
+
+        __createAnimation(){
+            const desc = {
+                duration: 2000,
+                timing: "step-end",
+                repeat: "infinite",
+                keyFrames: {
+                    0: { opacity: 0 },
+                    50: { opacity: 1 }
+                }
+            };
+
+            const html = this.getChildControl("icon").getContentElement().getDomElement();
+            return qx.bom.element.AnimationCss.animate(html, desc);
         },
 
         toggleAnimation(){
-            const hasAnimation = this.getChildControl("icon").getBlinked();
-            this.getChildControl("icon").setBlinked(!hasAnimation);
+            this.setAnimated(!this.getAnimated());
         },
 
         setColor(color){
-            this.getChildControl("icon").setColor(color);
-        },
-
-        _createChildControlImpl(id){
-            let control;
-            switch(id) {
-                case "icon":
-                    control = new ugpa.statusbutton.Status();
-                    this.addListener("appear", function(){
-                        const size = this.getBounds().height;
-                        control.setWidth(size);
-                        control.setHeight(size);
-                    }, this);
-                    this._add(control);
-                    break;
-            }
-            return control || super._createChildControlImpl(id);
+            this.getChildControl("icon").setTextColor(color);
         }
     }
 });

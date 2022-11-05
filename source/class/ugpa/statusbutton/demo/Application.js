@@ -48,13 +48,12 @@ qx.Class.define("ugpa.statusbutton.demo.Application",
 
       // Create a button
       const button = new ugpa.statusbutton.Button("label");
-      button.setStatusPosition("left");
 
       // Document is the application root
       const doc = this.getRoot();
 
       // Add button to document at fixed coordinates
-      doc.add(button, {left: 100, top: 50});      
+      doc.add(button, {left: 100, top: 50});
 
       const colors = {
           0: "red",
